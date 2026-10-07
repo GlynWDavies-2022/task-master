@@ -28,6 +28,8 @@ function App() {
         },
     ]);
 
+    const [showOnlyIncomplete, setShowOnlyIncomplete] = useState(false);
+
     return (
         <div
             style={{
@@ -38,8 +40,8 @@ function App() {
             }}>
             <h2 style={{ textAlign: 'center' }}>TaskMaster</h2>
             <TaskForm />
-            <TaskControls />
-            <TaskList tasks={tasks} />
+            <TaskControls showOnlyIncomplete={showOnlyIncomplete} setShowOnlyIncomplete={setShowOnlyIncomplete} />
+            <TaskList tasks={tasks} showOnlyIncomplete={showOnlyIncomplete} />
         </div>
     );
 }

@@ -1,15 +1,22 @@
-import { useState } from 'react';
-import heroImg from './assets/hero.png';
-import reactLogo from './assets/react.svg';
-import viteLogo from './assets/vite.svg';
 import './App.css';
 
-function App() {
-    const [count, setCount] = useState(0);
+import TaskControls from './components/TaskControls';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
 
+function App() {
     return (
-        <div>
-            <h1>Application</h1>
+        <div
+            style={{
+                fontFamily: 'sans-serif',
+                margin: 'auto',
+                maxWidth: '800px',
+                padding: '20px',
+            }}>
+            <h2 style={{ textAlign: 'center' }}>TaskMaster</h2>
+            <TaskForm />
+            <TaskControls />
+            <TaskList />
         </div>
     );
 }

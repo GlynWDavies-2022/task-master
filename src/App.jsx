@@ -11,13 +11,13 @@ function App() {
         {
             id: 1,
             text: 'Buy groceries',
-            priority: 1,
+            priority: 2,
             done: false,
         },
         {
             id: 2,
             text: 'Take a walk',
-            priority: 2,
+            priority: 1,
             done: false,
         },
         {
@@ -30,6 +30,11 @@ function App() {
 
     const [showOnlyIncomplete, setShowOnlyIncomplete] = useState(false);
 
+    const sortTasks = () => {
+        const sortedTasks = [...tasks].sort((a, b) => a.priority - b.priority);
+        setTasks(sortedTasks);
+    };
+
     return (
         <div
             style={{
@@ -40,11 +45,14 @@ function App() {
             }}>
             <h2 style={{ textAlign: 'center' }}>TaskMaster</h2>
             <TaskForm />
-            <TaskControls showOnlyIncomplete={showOnlyIncomplete} setShowOnlyIncomplete={setShowOnlyIncomplete} />
+            <TaskControls
+                showOnlyIncomplete={showOnlyIncomplete}
+                setShowOnlyIncomplete={setShowOnlyIncomplete}
+                sortTasks={sortTasks}
+            />
             <TaskList tasks={tasks} showOnlyIncomplete={showOnlyIncomplete} />
         </div>
     );
 }
 
 export default App;
-

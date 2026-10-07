@@ -1,6 +1,6 @@
 import { ArrowDownWideNarrow } from 'lucide-react';
 
-const TaskControls = ({ showOnlyIncomplete, setShowOnlyIncomplete }) => {
+const TaskControls = ({ showOnlyIncomplete, setShowOnlyIncomplete, sortTasks }) => {
     return (
         <div
             style={{
@@ -24,6 +24,7 @@ const TaskControls = ({ showOnlyIncomplete, setShowOnlyIncomplete }) => {
                 Show only incomplete
             </label>
             <button
+                onClick={sortTasks}
                 style={{
                     background: 'none',
                     border: 'none',

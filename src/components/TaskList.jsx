@@ -1,7 +1,6 @@
-import ListItem from './TaskItem';
 import TaskItem from './TaskItem';
 
-const TaskList = ({ tasks, showOnlyIncomplete }) => {
+const TaskList = ({ tasks, showOnlyIncomplete, toggleTaskDone }) => {
     return (
         <ul>
             {tasks
@@ -17,7 +16,7 @@ const TaskList = ({ tasks, showOnlyIncomplete }) => {
                             justifyContent: 'space-between',
                             padding: '10px',
                         }}>
-                        <TaskItem task={task} />
+                        <TaskItem task={task} toggleTaskDone={toggleTaskDone} />
                     </li>
                 ))}
         </ul>

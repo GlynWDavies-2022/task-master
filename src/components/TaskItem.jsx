@@ -1,6 +1,6 @@
 import { Trash, Pencil } from 'lucide-react';
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, toggleTaskDone }) => {
     return (
         <>
             <div
@@ -9,7 +9,12 @@ const TaskItem = ({ task }) => {
                     display: 'flex',
                     flexGrow: 1,
                 }}>
-                <input type='checkbox' checked={task.done} style={{ marginRight: '10px' }} />
+                <input
+                    type='checkbox'
+                    checked={task.done}
+                    style={{ marginRight: '10px' }}
+                    onChange={() => toggleTaskDone(task.id)}
+                />
                 <span
                     style={{
                         alignItems: 'center',

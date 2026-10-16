@@ -2,37 +2,21 @@ import { useState } from 'react';
 
 import './App.css';
 
+import { getStoredTasks, updateLocalStorage } from './utils/localStorageUtils';
+
 import TaskControls from './components/TaskControls';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 
 function App() {
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            text: 'Buy groceries',
-            priority: 2,
-            done: false,
-        },
-        {
-            id: 2,
-            text: 'Take a walk',
-            priority: 1,
-            done: false,
-        },
-        {
-            id: 3,
-            text: 'Read a book',
-            priority: 3,
-            done: true,
-        },
-    ]);
+    const [tasks, setTasks] = useState(getStoredTasks());
 
     const [showOnlyIncomplete, setShowOnlyIncomplete] = useState(false);
 
     const addTask = (newTask) => {
         const updatedTasks = [...tasks, newTask];
         setTasks(updatedTasks);
+        updateLocalStorage(updatedTasks);
     };
 
     const toggleTaskDone = (id) => {
@@ -40,6 +24,7 @@ function App() {
             return task.id === id ? { ...task, done: !task.done } : task;
         });
         setTasks(updatedTasks);
+        updateLocalStorage(updatedTasks);
     };
 
     const updateTask = ({ taskId, editText, editPriority }) => {
@@ -47,16 +32,19 @@ function App() {
             task.id === taskId ? { ...task, text: editText, priority: editPriority } : task,
         );
         setTasks(updatedTasks);
+        updateLocalStorage(updatedTasks);
     };
 
     const removeTask = (id) => {
         const updatedTasks = tasks.filter((task) => task.id !== id);
         setTasks(updatedTasks);
+        updateLocalStorage(updatedTasks);
     };
 
     const sortTasks = () => {
         const sortedTasks = [...tasks].sort((a, b) => a.priority - b.priority);
         setTasks(sortedTasks);
+        updateLocalStorage(sortedTasks);
     };
 
     return (
@@ -86,3 +74,4 @@ function App() {
 }
 
 export default App;
+

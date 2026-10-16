@@ -42,6 +42,11 @@ function App() {
         setTasks(updatedTasks);
     };
 
+    const removeTask = (id) => {
+        const updatedTasks = tasks.filter((task) => task.id !== id);
+        setTasks(updatedTasks);
+    };
+
     const sortTasks = () => {
         const sortedTasks = [...tasks].sort((a, b) => a.priority - b.priority);
         setTasks(sortedTasks);
@@ -62,9 +67,15 @@ function App() {
                 setShowOnlyIncomplete={setShowOnlyIncomplete}
                 sortTasks={sortTasks}
             />
-            <TaskList tasks={tasks} showOnlyIncomplete={showOnlyIncomplete} toggleTaskDone={toggleTaskDone} />
+            <TaskList
+                tasks={tasks}
+                showOnlyIncomplete={showOnlyIncomplete}
+                toggleTaskDone={toggleTaskDone}
+                removeTask={removeTask}
+            />
         </div>
     );
 }
 
 export default App;
+

@@ -1,50 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 import './App.css';
 
 import { getStoredTasks, updateLocalStorage } from './utils/localStorageUtils';
+import { taskReducer } from './reducers/taskReducer';
 
 import TaskControls from './components/TaskControls';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 
 function App() {
-    const [tasks, setTasks] = useState(getStoredTasks());
+    const [tasks, dispatch] = useReducer(taskReducer, undefined, getStoredTasks);
 
     const [showOnlyIncomplete, setShowOnlyIncomplete] = useState(false);
 
+    useEffect(() => {
+        updateLocalStorage(tasks);
+    }, [tasks]);
+
     const addTask = (newTask) => {
-        const updatedTasks = [...tasks, newTask];
-        setTasks(updatedTasks);
-        updateLocalStorage(updatedTasks);
+        dispatch({ type: 'ADD', payload: newTask });
     };
 
     const toggleTaskDone = (id) => {
-        const updatedTasks = tasks.map((task) => {
-            return task.id === id ? { ...task, done: !task.done } : task;
-        });
-        setTasks(updatedTasks);
-        updateLocalStorage(updatedTasks);
+        dispatch({ type: 'TOGGLE_DONE', payload: id });
     };
 
     const updateTask = ({ taskId, editText, editPriority }) => {
-        const updatedTasks = tasks.map((task) =>
-            task.id === taskId ? { ...task, text: editText, priority: editPriority } : task,
-        );
-        setTasks(updatedTasks);
-        updateLocalStorage(updatedTasks);
+        dispatch({ type: 'UPDATE', payload: { taskId, editText, editPriority } });
     };
 
     const removeTask = (id) => {
-        const updatedTasks = tasks.filter((task) => task.id !== id);
-        setTasks(updatedTasks);
-        updateLocalStorage(updatedTasks);
+        dispatch({ type: 'REMOVE', payload: id });
     };
 
     const sortTasks = () => {
-        const sortedTasks = [...tasks].sort((a, b) => a.priority - b.priority);
-        setTasks(sortedTasks);
-        updateLocalStorage(sortedTasks);
+        dispatch({ type: 'SORT' });
     };
 
     return (
